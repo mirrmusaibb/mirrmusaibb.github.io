@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>musaib</title>
 
-  <!-- SEO Enhancements -->
+ <!-- SEO Enhancements -->
   <meta name="description" content="Send a message to Musaib through a simple contact portal. Fast, minimal, and mobile-friendly." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <link rel="canonical" href="https://mirrmusaibb.github.io/" />
@@ -24,7 +25,9 @@
   <meta name="twitter:description" content="Send a message to Musaib through a simple contact portal." />
   <meta name="twitter:image" content="https://mirrmusaibb.github.io/favicon.png" />
 
-  <link rel="icon" type="image/png" href="favicon.png" />
+
+
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <script type="application/ld+json">
   {
@@ -39,7 +42,7 @@
     }
   }
   </script>
-
+  
   <style>
     :root {
       --bg: #000000;
@@ -49,7 +52,9 @@
       --glass-blur: 12px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       height: 100%;
@@ -96,17 +101,10 @@
     }
 
     h1 {
-      margin: 0 0 8px 0;
+      margin: 0 0 28px 0;
       font-size: 20px;
       font-weight: 700;
       color: #efefef;
-    }
-
-    .intro {
-      margin: 0 0 20px;
-      color: #cfcfcf;
-      font-size: 14px;
-      line-height: 1.45;
     }
 
     form {
@@ -147,6 +145,10 @@
       color: var(--muted);
     }
 
+    .field:nth-of-type(1) { transition-delay: 0.08s; }
+    .field:nth-of-type(2) { transition-delay: 0.12s; }
+    .field:nth-of-type(3) { transition-delay: 0.16s; }
+
     textarea.field {
       min-height: 120px;
       resize: none;
@@ -182,13 +184,12 @@
       transform: translateY(-2px);
     }
 
+    /* Subtle glow pulse on press */
     .btn:active::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       border-radius: inherit;
       background: rgba(255,255,255,0.25);
       box-shadow: 0 0 25px rgba(255,255,255,0.25);
@@ -222,36 +223,22 @@
     }
 
     @media (max-width: 520px) {
-      .card {
-        padding: 26px 18px;
-        max-width: 100%;
-      }
-
-      h1 {
-        font-size: 18px;
-      }
-
-      .field,
-      .btn {
-        transition-delay: 0s !important;
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
+      .card { padding: 26px 18px; max-width: 100%; }
+      h1 { font-size: 18px; }
+      .field, .btn { transition-delay: 0s !important; opacity: 1; transform: translateY(0); pointer-events: auto; }
     }
   </style>
 </head>
 <body>
   <main class="card" aria-labelledby="title">
     <div class="morse" aria-hidden>··· --- ···</div>
-    <h1 id="title">Contact Musaib</h1>
-    <p class="intro">Use this message form to get in touch quickly. Messages are sent securely through Formspree.</p>
+    <h1 id="title">What's on your mind?</h1>
 
     <form id="messageForm" action="https://formspree.io/f/xblzedpv" method="POST" autocomplete="off">
-      <input type="text" name="_gotcha" style="display:none" autocomplete="off" />
+      <input type="text" name="_gotcha" style="display:none" autocomplete="off">
       <input class="field" name="name" type="text" placeholder="Name (Optional)" autocomplete="name" />
       <textarea class="field" name="message" placeholder="Write your message.." required></textarea>
-      <input type="hidden" name="_subject" value="New Message from The Portal" />
+      <input type="hidden" name="_subject" value="New Message from The Portal">
       <button class="btn" type="submit">Transmit</button>
       <div class="success" id="successMsg">Transmission Received..</div>
     </form>
@@ -260,45 +247,48 @@
   </main>
 
   <script>
-    const form = document.getElementById('messageForm');
-    const success = document.getElementById('successMsg');
-    const button = form.querySelector('.btn');
+  const form = document.getElementById('messageForm');
+  const success = document.getElementById('successMsg');
+  const button = form.querySelector('.btn');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      button.disabled = true;
-      button.style.opacity = 0.5;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    button.style.opacity = 0.5;
 
-      const data = new FormData(form);
+    const data = new FormData(form);
 
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { Accept: 'application/json' }
-        });
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
 
-        if (response.ok) {
-          form.reset();
-          success.textContent = 'Transmission successful — message received by server.';
-          success.style.color = '#7ef29d';
-        } else {
-          success.textContent = 'Transmission failed — server did not accept the message.';
-          success.style.color = '#f28b82';
-        }
-      } catch (error) {
-        success.textContent = 'Connection issue — please retry once stable.';
-        success.style.color = '#f5c77c';
+      if (response.ok) {
+        form.reset();
+        success.textContent = 'Transmission successful — message received by server.';
+        success.style.color = '#7ef29d'; // calm green
+      } else {
+        success.textContent = 'Transmission failed — server did not accept the message.';
+        success.style.color = '#f28b82'; // soft red
       }
+    } catch (error) {
+      success.textContent = 'Connection issue — please retry once stable.';
+      success.style.color = '#f5c77c'; // amber tone
+    }
 
-      success.classList.add('visible');
+    success.classList.add('visible');
 
-      setTimeout(() => {
-        success.classList.remove('visible');
-        button.disabled = false;
-        button.style.opacity = 1;
-      }, 4000);
-    });
-  </script>
+    setTimeout(() => {
+      success.classList.remove('visible');
+      button.disabled = false;
+      button.style.opacity = 1;
+    }, 4000);
+  });
+</script>
 </body>
 </html>
+
+
+
