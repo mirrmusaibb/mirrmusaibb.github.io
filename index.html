@@ -3,24 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Musaib — Contact Portal</title>
+  <title>musaib</title>
+
+  <!-- SEO Enhancements -->
   <meta name="description" content="Send a message to Musaib through a simple contact portal. Fast, minimal, and mobile-friendly." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <link rel="canonical" href="https://mirrmusaibb.github.io/" />
   <meta name="theme-color" content="#000000" />
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Musaib — Contact Portal" />
   <meta property="og:description" content="Send a message to Musaib through a simple contact portal." />
   <meta property="og:url" content="https://mirrmusaibb.github.io/" />
   <meta property="og:image" content="https://mirrmusaibb.github.io/favicon.png" />
 
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Musaib — Contact Portal" />
   <meta name="twitter:description" content="Send a message to Musaib through a simple contact portal." />
   <meta name="twitter:image" content="https://mirrmusaibb.github.io/favicon.png" />
 
   <link rel="icon" type="image/png" href="favicon.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Musaib Contact Portal",
+    "url": "https://mirrmusaibb.github.io/",
+    "description": "A simple page to send messages to Musaib.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Musaib"
+    }
+  }
+  </script>
+
   <style>
     :root {
       --bg: #000000;
@@ -30,9 +49,7 @@
       --glass-blur: 12px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       height: 100%;
@@ -130,10 +147,6 @@
       color: var(--muted);
     }
 
-    .field:nth-of-type(1) { transition-delay: 0.08s; }
-    .field:nth-of-type(2) { transition-delay: 0.12s; }
-    .field:nth-of-type(3) { transition-delay: 0.16s; }
-
     textarea.field {
       min-height: 120px;
       resize: none;
@@ -227,20 +240,6 @@
       }
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Musaib Contact Portal",
-    "url": "https://mirrmusaibb.github.io/",
-    "description": "A simple page to send messages to Musaib.",
-    "publisher": {
-      "@type": "Person",
-      "name": "Musaib"
-    }
-  }
-  </script>
 </head>
 <body>
   <main class="card" aria-labelledby="title">
