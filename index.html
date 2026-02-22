@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,289 +5,319 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>musaib</title>
 
- <!-- SEO Enhancements -->
-  <meta name="description" content="Send a message to Musaib through a simple contact portal. Fast, minimal, and mobile-friendly." />
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
-  <link rel="canonical" href="https://mirrmusaibb.github.io/" />
-  <meta name="theme-color" content="#000000" />
+<!-- SEO Enhancements -->
+<meta name="description" content="Send a message to Musaib through a simple contact portal. Fast, minimal, and mobile-friendly." />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<link rel="canonical" href="https://mirrmusaibb.github.io/" />
+<meta name="theme-color" content="#000000" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Musaib — Contact Portal" />
-  <meta property="og:description" content="Send a message to Musaib through a simple contact portal." />
-  <meta property="og:url" content="https://mirrmusaibb.github.io/" />
-  <meta property="og:image" content="https://mirrmusaibb.github.io/favicon.png" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Musaib — Contact Portal" />
+<meta property="og:description" content="Send a message to Musaib through a simple contact portal." />
+<meta property="og:url" content="https://mirrmusaibb.github.io/" />
+<meta property="og:image" content="https://mirrmusaibb.github.io/favicon.png" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Musaib — Contact Portal" />
-  <meta name="twitter:description" content="Send a message to Musaib through a simple contact portal." />
-  <meta name="twitter:image" content="https://mirrmusaibb.github.io/favicon.png" />
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Musaib — Contact Portal" />
+<meta name="twitter:description" content="Send a message to Musaib through a simple contact portal." />
+<meta name="twitter:image" content="https://mirrmusaibb.github.io/favicon.png" />
 
-
-
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Musaib Contact Portal",
-    "url": "https://mirrmusaibb.github.io/",
-    "description": "A simple page to send messages to Musaib.",
-    "publisher": {
-      "@type": "Person",
-      "name": "Musaib"
-    }
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Musaib Contact Portal",
+  "url": "https://mirrmusaibb.github.io/",
+  "description": "A simple page to send messages to Musaib.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Musaib"
   }
-  </script>
-  
+}
+</script>
+
+   <link rel="icon" type="image/png" href="favicon.png">
+
   <style>
     :root {
-      --bg: #000000;
-      --card: rgba(255, 255, 255, 0.06);
-      --card-border: rgba(255, 255, 255, 0.10);
-      --muted: rgba(255, 255, 255, 0.45);
-      --glass-blur: 12px;
+      --bg:#000;
+      --border:rgba(255,255,255,.10);
+      --muted:rgba(255,255,255,.45);
+      --blur:12px;
+      --t:260ms;
     }
 
-    * {
-      box-sizing: border-box;
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+
+    body{
+      background:var(--bg);
+      color:#eaeaea;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
     }
 
-    html, body {
-      height: 100%;
-      margin: 0;
+    /* ===== CARD SHELL ===== */
+    .shell{
+      width:100%;
+      max-width:460px;
+      border-radius:14px;
+      overflow:hidden;
+      background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.03),
+        rgba(255,255,255,.02)
+      );
+      box-shadow:
+        0 18px 50px rgba(0,0,0,.75),
+        inset 0 0 0 1px var(--border);
+      backdrop-filter:blur(var(--blur));
+      transition:transform var(--t), box-shadow var(--t);
     }
 
-    body {
-      background: var(--bg);
-      color: #eaeaea;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px;
+    .shell:hover,
+    .shell:focus-within{
+      transform:translateY(-6px);
+      box-shadow:
+        0 28px 80px rgba(0,0,0,.8),
+        inset 0 0 0 1px var(--border);
     }
 
-    .card {
-      width: 100%;
-      max-width: 460px;
-      border-radius: 14px;
-      padding: 34px 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid var(--card-border);
-      box-shadow: 0 18px 50px rgba(0,0,0,0.75),
-                 0 6px 20px rgba(255,255,255,0.02) inset;
-      backdrop-filter: blur(var(--glass-blur));
-      text-align: center;
-      transition: transform 260ms ease, box-shadow 260ms ease;
+    /* ===== SLIDER ===== */
+    .strip{
+      display:flex;
+      width:200%;
+      transition:transform var(--t) ease;
+    }
+    body.pay-mode .strip{
+      transform:translateX(-50%);
     }
 
-    .card:hover,
-    .card:focus-within {
-      transform: translateY(-6px);
-      box-shadow: 0 28px 80px rgba(0,0,0,0.8);
+    /* ===== PANELS ===== */
+    .panel{
+      width:50%;
+      padding:34px 28px;
+      text-align:center;
     }
 
-    .morse {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-      letter-spacing: 6px;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 10px;
-      opacity: 0.9;
+    /* ===== TYPOGRAPHY ===== */
+    .morse{
+      font-family:ui-monospace,monospace;
+      letter-spacing:6px;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
+      opacity:.9;
     }
 
-    h1 {
-      margin: 0 0 28px 0;
-      font-size: 20px;
-      font-weight: 700;
-      color: #efefef;
+    h1{
+      margin:0 0 28px;
+      font-size:20px;
+      font-weight:700;
+      color:#efefef;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: stretch;
+    /* ===== FORM ===== */
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
     }
 
-    .field {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      color: #f6f6f6;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 15px;
-      outline: none;
-      transition: opacity 260ms ease, transform 260ms ease, border-color 200ms ease, background 200ms ease;
-      opacity: 0;
-      transform: translateY(8px);
-      pointer-events: none;
+    .field{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      color:#f6f6f6;
+      border-radius:10px;
+      padding:12px 14px;
+      font-size:15px;
+      outline:none;
+      opacity:0;
+      transform:translateY(8px);
+      pointer-events:none;
+      transition:opacity 260ms, transform 260ms;
     }
 
-    .field::placeholder {
-      color: transparent;
-      transition: color 220ms ease;
+    .shell:hover .field,
+    .shell:focus-within .field{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
     }
 
-    .card:hover .field,
-    .card:focus-within .field {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+    textarea{min-height:120px;resize:none}
+
+    /* ===== BUTTONS ===== */
+    .actions{
+      display:flex;
+      gap:10px;
     }
 
-    .card:hover .field::placeholder,
-    .card:focus-within .field::placeholder {
-      color: var(--muted);
+    .btn{
+      padding:10px 14px;
+      border-radius:9px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.06);
+      color:#fafafa;
+      font-weight:600;
+      font-size:14px;
+      cursor:pointer;
+      opacity:0;
+      transform:translateY(8px);
+      pointer-events:none;
+      transition:background 180ms, transform 120ms, opacity 260ms;
     }
 
-    .field:nth-of-type(1) { transition-delay: 0.08s; }
-    .field:nth-of-type(2) { transition-delay: 0.12s; }
-    .field:nth-of-type(3) { transition-delay: 0.16s; }
-
-    textarea.field {
-      min-height: 120px;
-      resize: none;
+    .shell:hover .btn,
+    .shell:focus-within .btn{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
     }
 
-    .btn {
-      padding: 10px 14px;
-      border-radius: 9px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.06);
-      color: #fafafa;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 180ms ease, box-shadow 180ms ease, transform 120ms ease;
-      opacity: 0;
-      transform: translateY(8px);
-      pointer-events: none;
-      position: relative;
-      overflow: hidden;
+    .btn:hover{
+      background:rgba(255,255,255,.14);
+      transform:translateY(-2px);
     }
 
-    .card:hover .btn,
-    .card:focus-within .btn {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+    .btn.transmit{flex:1}
+    .btn.pay{flex:0 0 44px}
+
+    .foot{
+      margin-top:14px;
+      font-size:12px;
+      color:var(--muted);
+      opacity:.9;
     }
 
-    .btn:hover {
-      background: rgba(255,255,255,0.14);
-      box-shadow: 0 6px 20px rgba(255,255,255,0.06);
-      transform: translateY(-2px);
+    /* ===== PAY PANEL ===== */
+    .signal{
+      font-family:ui-monospace,monospace;
+      letter-spacing:4px;
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:22px;
+      opacity:.85;
     }
 
-    /* Subtle glow pulse on press */
-    .btn:active::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border-radius: inherit;
-      background: rgba(255,255,255,0.25);
-      box-shadow: 0 0 25px rgba(255,255,255,0.25);
-      opacity: 0;
-      animation: glowPulse 400ms ease-out;
+    .qr-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:14px;
     }
 
-    @keyframes glowPulse {
-      0% { opacity: 0.8; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.6); }
+    .qr-wrap img{
+      width:180px;
+      height:180px;
+      border-radius:14px;
+      background:transparent;
+      box-shadow:0 0 0 1px rgba(255,255,255,0.08);
     }
 
-    .foot {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--muted);
-      opacity: 0.9;
+    .or{
+      font-family:ui-monospace,monospace;
+      font-size:11px;
+      letter-spacing:3px;
+      color:var(--muted);
+      opacity:.5;
+      margin:14px 0;
     }
 
-    .success {
-      opacity: 0;
-      margin-top: 10px;
-      color: #7ef29d;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      transition: opacity 600ms ease;
+    .pay-btn{
+      width:180px;
+      margin:0 auto;
+      opacity:1!important;
+      transform:none!important;
+      pointer-events:auto!important;
     }
 
-    .success.visible {
-      opacity: 1;
-    }
-
-    @media (max-width: 520px) {
-      .card { padding: 26px 18px; max-width: 100%; }
-      h1 { font-size: 18px; }
-      .field, .btn { transition-delay: 0s !important; opacity: 1; transform: translateY(0); pointer-events: auto; }
+    @media(max-width:520px){
+      .panel{padding:26px 18px}
+      .field,.btn{
+        opacity:1;
+        transform:none;
+        pointer-events:auto;
+      }
     }
   </style>
 </head>
+
 <body>
-  <main class="card" aria-labelledby="title">
-    <div class="morse" aria-hidden>··· --- ···</div>
-    <h1 id="title">What's on your mind?</h1>
 
-    <form id="messageForm" action="https://formspree.io/f/xblzedpv" method="POST" autocomplete="off">
-      <input type="text" name="_gotcha" style="display:none" autocomplete="off">
-      <input class="field" name="name" type="text" placeholder="Name (Optional)" autocomplete="name" />
-      <textarea class="field" name="message" placeholder="Write your message.." required></textarea>
-      <input type="hidden" name="_subject" value="New Message from The Portal">
-      <button class="btn" type="submit">Transmit</button>
-      <div class="success" id="successMsg">Transmission Received..</div>
-    </form>
+<div class="shell">
+  <div class="strip">
 
-    <div class="foot"> • to mirmusaib • </div>
-  </main>
+    <!-- PANEL 1 -->
+    <section class="panel">
+      <div class="morse">··· --- ···</div>
+      <h1>What's on your mind?</h1>
 
-  <script>
-  const form = document.getElementById('messageForm');
-  const success = document.getElementById('successMsg');
-  const button = form.querySelector('.btn');
+      <form action="https://formspree.io/f/xblzedpv" method="POST">
+        <input type="text" name="_gotcha" style="display:none">
+        <input class="field" name="name" placeholder="Name (Optional)">
+        <textarea class="field" name="message" placeholder="Write your message.." required></textarea>
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    button.disabled = true;
-    button.style.opacity = 0.5;
+        <div class="actions">
+          <button class="btn transmit" type="submit">Transmit</button>
+          <button class="btn pay" type="button" id="payBtn">₹</button>
+        </div>
+      </form>
 
-    const data = new FormData(form);
+      <div class="foot"> • mirrmusaibb • </div>
+    </section>
 
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
+    <!-- PANEL 2 -->
+    <section class="panel">
+      <div class="signal">. Support the Signal .</div>
 
-      if (response.ok) {
-        form.reset();
-        success.textContent = 'Transmission successful — message received by server.';
-        success.style.color = '#7ef29d'; // calm green
-      } else {
-        success.textContent = 'Transmission failed — server did not accept the message.';
-        success.style.color = '#f28b82'; // soft red
-      }
-    } catch (error) {
-      success.textContent = 'Connection issue — please retry once stable.';
-      success.style.color = '#f5c77c'; // amber tone
+      <div class="qr-wrap">
+        <img src="upi-qr.png" alt="UPI QR Code">
+      </div>
+
+      <div class="or">OR</div>
+
+      <button class="btn pay-btn" id="upiBtn">Pay Via UPI</button>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  const payBtn = document.getElementById('payBtn');
+  const upiBtn = document.getElementById('upiBtn');
+
+  // === YOUR EXACT UPI DETAILS ===
+  const UPI_ID = "mirrmusaibb@okicici";
+  const NAME = "Musaib";
+  const CURRENCY = "INR";
+
+  const upiURL =
+    `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(NAME)}&cu=${CURRENCY}`;
+
+  // Slide to payment panel
+  payBtn.onclick = e => {
+    e.stopPropagation();
+    document.body.classList.add('pay-mode');
+  };
+
+  // Open UPI app (GPay / PhonePe / Paytm / BHIM)
+  upiBtn.onclick = () => {
+    window.location.href = upiURL;
+  };
+
+  // Click outside to return
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.shell')) {
+      document.body.classList.remove('pay-mode');
     }
-
-    success.classList.add('visible');
-
-    setTimeout(() => {
-      success.classList.remove('visible');
-      button.disabled = false;
-      button.style.opacity = 1;
-    }, 4000);
   });
 </script>
+
 </body>
 </html>
-
-
-
