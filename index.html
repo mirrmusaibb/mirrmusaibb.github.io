@@ -237,14 +237,38 @@
       pointer-events:auto!important;
     }
 
-    @media(max-width:520px){
-      .panel{padding:26px 18px}
-      .field,.btn{
-        opacity:1;
-        transform:none;
-        pointer-events:auto;
-      }
-    }
+    @media (max-width: 520px) {
+  .panel { padding: 26px 18px; }
+
+  /* Keep fields hidden until user taps into the card */
+  .field,
+  .btn {
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+  }
+
+  .shell:focus-within .field,
+  .shell:focus-within .btn {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.success {
+  opacity: 0;
+  margin-top: 10px;
+  color: #7ef29d;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  transition: opacity 600ms ease;
+}
+
+.success.visible {
+  opacity: 1;
+}
+
   </style>
 </head>
 
@@ -258,7 +282,10 @@
       <div class="morse">··· --- ···</div>
       <h1>What's on your mind?</h1>
 
-      <form action="https://formspree.io/f/xblzedpv" method="POST">
+     <form id="messageForm"
+      action="https://formspree.io/f/xblzedpv"
+      method="POST"
+      autocomplete="off">
         <input type="text" name="_gotcha" style="display:none">
         <input class="field" name="name" placeholder="Name (Optional)">
         <textarea class="field" name="message" placeholder="Write your message.." required></textarea>
@@ -267,6 +294,9 @@
           <button class="btn transmit" type="submit">Transmit</button>
           <button class="btn pay" type="button" id="payBtn">₹</button>
         </div>
+
+<div class="success" id="successMsg">Transmission Received..</div>
+
       </form>
 
       <div class="foot"> • mirrmusaibb • </div>
@@ -316,6 +346,49 @@
     if (!e.target.closest('.shell')) {
       document.body.classList.remove('pay-mode');
     }
+  });
+</script>
+
+<script>
+  const form = document.getElementById('messageForm');
+  const success = document.getElementById('successMsg');
+  const transmitBtn = form.querySelector('.transmit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // ⛔ STOP browser redirect
+
+    transmitBtn.disabled = true;
+    transmitBtn.style.opacity = 0.5;
+
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.reset();
+        success.textContent = 'Transmission successful — message received.';
+        success.style.color = '#7ef29d';
+      } else {
+        success.textContent = 'Transmission failed — server rejected message.';
+        success.style.color = '#f28b82';
+      }
+    } catch {
+      success.textContent = 'Connection issue — retry once stable.';
+      success.style.color = '#f5c77c';
+    }
+
+    success.classList.add('visible');
+
+    setTimeout(() => {
+      success.classList.remove('visible');
+      transmitBtn.disabled = false;
+      transmitBtn.style.opacity = 1;
+    }, 4000);
   });
 </script>
 
