@@ -74,6 +74,12 @@ body{
   transition:transform var(--t),box-shadow var(--t);
   outline:none;
 }
+
+.shell:focus-visible{
+  outline:2px solid rgba(255,255,255,.25);
+  outline-offset:2px;
+}
+  
 .shell:hover,
 .shell:focus-within{
   transform:translateY(-6px);
@@ -279,9 +285,8 @@ textarea{min-height:120px;resize:none}
       <form id="messageForm" autocomplete="off">
         <input type="hidden" name="_subject" value="New Message from The Portal">
         <input type="text" name="_gotcha" style="display:none" autocomplete="off">
-        <input class="field" name="name" placeholder="Name (Optional)">
-        <textarea class="field" name="message" required placeholder="Write your message.."></textarea>
-
+       <input class="field" name="name" type="text" inputmode="text" placeholder="Name (Optional)">
+       <textarea class="field" name="message" required maxlength="100000" placeholder="Write your message.."></textarea>
         <div class="actions">
           <button class="btn transmit" type="submit">Transmit</button>
           <button class="btn pay" type="button" id="payBtn">₹</button>
@@ -324,6 +329,10 @@ function showAck(main, sub=""){
   ackMain.textContent = main;
   ackSub.textContent = sub;
   ack.classList.add('visible');
+
+  // focus management for accessibility & correctness
+  ack.setAttribute('tabindex','-1');
+  ack.focus({ preventScroll:true });
 }
 
 ack.addEventListener('pointerdown',()=>{
@@ -352,10 +361,22 @@ document.addEventListener('pointerdown',e=>{
 
 upiBtn.onclick = () => {
   upiNote.classList.add('show');
+
+  const upiUrl = "upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&tn=Support&cu=INR";
+
+  // attempt UPI launch
   setTimeout(() => {
-    location.href = "upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&tn=Support&cu=INR";
+    window.location.assign(upiUrl);
   }, 200);
-  setTimeout(() => upiNote.classList.remove('show'), 1800);
+
+  // fallback if UPI app is not detected / blocked
+  setTimeout(() => {
+    upiNote.classList.remove('show');
+    showAck(
+      "UPI app not detected.",
+      "You can scan the QR code instead."
+    );
+  }, 1200);
 };
 
 /* MOBILE TAP → FOCUS */
@@ -367,8 +388,11 @@ shell.addEventListener('pointerdown',()=>{
 <script>
 /* FORM SUBMISSION */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
-const form=document.getElementById('messageForm');
-const btn=form.querySelector('.transmit');
+const form = document.getElementById('messageForm');
+if(!form) return;
+
+const btn = form.querySelector('.transmit');
+if(!btn) return;
 
 form.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -383,10 +407,14 @@ form.addEventListener('submit',async e=>{
     });
 
     if(res.ok){
-      form.reset();
-      showAck("Message Received.");
-    }
-  }catch{}
+  form.reset();
+  showAck("Message Received.");
+}else{
+  showAck("Message failed.", "Please try again later.");
+}
+  }catch{
+  showAck("Network error.", "Check your connection and retry.");
+}
 
   btn.disabled=false;
 });
