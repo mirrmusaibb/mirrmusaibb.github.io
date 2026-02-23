@@ -321,10 +321,12 @@ document.addEventListener('pointerdown',e=>{
   }
 });
 
-upiBtn.onclick=()=>{
+upiBtn.onclick = () => {
   upiNote.classList.add('show');
-  setTimeout(()=>location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR",200);
-  setTimeout(()=>upiNote.classList.remove('show'),1800);
+  setTimeout(() => {
+    location.href = "upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&tn=Support&cu=INR";
+  }, 200);
+  setTimeout(() => upiNote.classList.remove('show'), 1800);
 };
 
 /* MOBILE TAP → FOCUS */
