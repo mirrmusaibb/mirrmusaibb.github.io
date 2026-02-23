@@ -181,7 +181,20 @@ textarea{min-height:120px;resize:none}
   pointer-events:auto!important;
 }
 
-/* ===== ACKNOWLEDGMENT OVERLAY ===== */
+/* ===== UPI MICRO NOTE ===== */
+.upi-note{
+  margin-top:8px;
+  font-size:11px;
+  color:var(--muted);
+  opacity:0;
+  transition:opacity 260ms ease;
+  pointer-events:none;
+}
+.upi-note.visible{
+  opacity:.6;
+}
+
+/* ===== ACK OVERLAY ===== */
 .ack{
   position:fixed;
   inset:0;
@@ -251,8 +264,8 @@ textarea{min-height:120px;resize:none}
       <div class="qr-wrap"><img src="upi-qr.png" alt="UPI QR"></div>
       <div class="or">OR</div>
       <button class="btn pay-btn" id="upiBtn">Pay Via UPI</button>
+      <div class="upi-note" id="upiNote">Opening UPI app…</div>
 
-      <!-- SAME FOOTER, UNCHANGED -->
       <div class="foot"> • mirrmusaibb • </div>
     </section>
 
@@ -268,7 +281,7 @@ textarea{min-height:120px;resize:none}
 </div>
 
 <script>
-/* ACK SYSTEM */
+/* ACK SYSTEM (used only for message submit) */
 const ack = document.getElementById('ack');
 const ackMain = document.getElementById('ackMain');
 const ackSub = document.getElementById('ackSub');
@@ -288,6 +301,7 @@ ack.addEventListener('pointerdown',()=>{
 /* PAY PANEL */
 const payBtn=document.getElementById('payBtn');
 const upiBtn=document.getElementById('upiBtn');
+const upiNote=document.getElementById('upiNote');
 const shell=document.querySelector('.shell');
 
 payBtn.onclick=e=>{
@@ -300,13 +314,18 @@ document.addEventListener('pointerdown',e=>{
     document.body.classList.remove('pay-mode');
     document.activeElement.blur();
   }
-});
+};
 
 upiBtn.onclick=()=>{
-  showAck("♥ Thank You.","i’ve received it");
+  upiNote.classList.add('visible');
+
   setTimeout(()=>{
     location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
-  },250);
+  },200);
+
+  setTimeout(()=>{
+    upiNote.classList.remove('visible');
+  },2200);
 };
 
 /* MOBILE TAP → FOCUS */
