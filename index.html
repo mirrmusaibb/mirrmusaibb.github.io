@@ -389,12 +389,17 @@ document.addEventListener('DOMContentLoaded', () => {
     success.classList.add('visible');
 
     setTimeout(() => {
-      success.classList.remove('visible');
-      transmitBtn.disabled = false;
-      transmitBtn.style.opacity = '';
-      transmitBtn.style.transform = '';
-      transmitBtn.style.pointerEvents = '';
-    }, 4000);
+  success.classList.remove('visible');
+
+  transmitBtn.disabled = false;
+  transmitBtn.style.opacity = '';
+  transmitBtn.style.transform = '';
+  transmitBtn.style.pointerEvents = '';
+
+  // 🔑 RELEASE FOCUS SO HOVER CAN COLLAPSE
+  form.blur();
+  document.activeElement.blur();
+}, 4000);
   });
 
 });
