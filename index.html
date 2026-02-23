@@ -181,15 +181,38 @@ textarea{min-height:120px;resize:none}
   pointer-events:auto!important;
 }
 
-/* ===== SUCCESS ===== */
-.success{
+/* ===== ACKNOWLEDGMENT OVERLAY ===== */
+.ack{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.06);
   opacity:0;
-  margin-top:10px;
-  font-size:13px;
-  color:#7ef29d;
-  transition:opacity 600ms ease;
+  pointer-events:none;
+  transition:opacity 320ms ease;
+  z-index:999;
 }
-.success.visible{opacity:1}
+.ack.visible{
+  opacity:1;
+  pointer-events:auto;
+}
+.ack-box{
+  text-align:center;
+  padding:24px 28px;
+}
+.ack-main{
+  font-size:16px;
+  font-weight:600;
+  color:#efefef;
+}
+.ack-sub{
+  margin-top:4px;
+  font-size:11px;
+  letter-spacing:.5px;
+  opacity:.38;
+}
 
 /* ===== MOBILE ===== */
 @media(max-width:520px){
@@ -217,8 +240,6 @@ textarea{min-height:120px;resize:none}
           <button class="btn transmit" type="submit">Transmit</button>
           <button class="btn pay" type="button" id="payBtn">₹</button>
         </div>
-
-        <div class="success" id="successMsg">Transmission Received..</div>
       </form>
 
       <div class="foot"> • mirrmusaibb • </div>
@@ -234,6 +255,31 @@ textarea{min-height:120px;resize:none}
 
   </div>
 </div>
+
+<!-- ACK OVERLAY -->
+<div class="ack" id="ack">
+  <div class="ack-box">
+    <div class="ack-main" id="ackMain"></div>
+    <div class="ack-sub" id="ackSub"></div>
+  </div>
+</div>
+
+<script>
+/* ACK SYSTEM */
+const ack = document.getElementById('ack');
+const ackMain = document.getElementById('ackMain');
+const ackSub = document.getElementById('ackSub');
+
+function showAck(main, sub=""){
+  ackMain.textContent = main;
+  ackSub.textContent = sub;
+  ack.classList.add('visible');
+}
+
+ack.addEventListener('pointerdown',()=>{
+  ack.classList.remove('visible');
+});
+</script>
 
 <script>
 /* PAY PANEL */
@@ -254,7 +300,10 @@ document.addEventListener('pointerdown',e=>{
 });
 
 upiBtn.onclick=()=>{
-  location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
+  showAck("♥ Thank You.","i’ve received it");
+  setTimeout(()=>{
+    location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
+  },250);
 };
 
 /* MOBILE TAP → FOCUS */
@@ -267,7 +316,6 @@ shell.addEventListener('pointerdown',()=>{
 /* FORM SUBMISSION */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
 const form=document.getElementById('messageForm');
-const success=document.getElementById('successMsg');
 const btn=form.querySelector('.transmit');
 
 form.addEventListener('submit',async e=>{
@@ -284,23 +332,11 @@ form.addEventListener('submit',async e=>{
 
     if(res.ok){
       form.reset();
-      success.textContent="Transmission successful — message received.";
-      success.style.color="#7ef29d";
-    }else{
-      success.textContent="Transmission failed — server rejected message.";
-      success.style.color="#f28b82";
+      showAck("Message received.");
     }
-  }catch{
-    success.textContent="Connection issue — retry once stable.";
-    success.style.color="#f5c77c";
-  }
+  }catch{}
 
-  success.classList.add('visible');
-
-  setTimeout(()=>{
-    success.classList.remove('visible');
-    btn.disabled=false;
-  },4000);
+  btn.disabled=false;
 });
 </script>
 
