@@ -5,12 +5,41 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>musaib</title>
 
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="description" content="Send a message to Musaib through a simple contact portal. Fast, minimal, and mobile-friendly." />
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 <link rel="canonical" href="https://mirrmusaibb.github.io/" />
 <meta name="theme-color" content="#000000" />
 <link rel="icon" type="image/png" href="favicon.png">
 
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Musaib — Contact Portal" />
+<meta property="og:description" content="Send a message to Musaib through a simple contact portal." />
+<meta property="og:url" content="https://mirrmusaibb.github.io/" />
+<meta property="og:image" content="https://mirrmusaibb.github.io/favicon.png" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Musaib — Contact Portal" />
+<meta name="twitter:description" content="Send a message to Musaib through a simple contact portal." />
+<meta name="twitter:image" content="https://mirrmusaibb.github.io/favicon.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Musaib Contact Portal",
+  "url": "https://mirrmusaibb.github.io/",
+  "description": "A simple page to send messages to Musaib.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Musaib"
+  }
+}
+</script>
+  
 <style>
 :root{
   --bg:#000;
@@ -248,7 +277,8 @@ textarea{min-height:120px;resize:none}
       <h1>What's on your mind?</h1>
 
       <form id="messageForm" autocomplete="off">
-        <input type="text" name="_gotcha" style="display:none">
+        <input type="hidden" name="_subject" value="New Message from The Portal">
+        <input type="text" name="_gotcha" style="display:none" autocomplete="off">
         <input class="field" name="name" placeholder="Name (Optional)">
         <textarea class="field" name="message" required placeholder="Write your message.."></textarea>
 
