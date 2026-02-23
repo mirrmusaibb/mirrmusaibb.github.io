@@ -389,35 +389,40 @@ shell.addEventListener('pointerdown',()=>{
 /* FORM SUBMISSION */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
 const form = document.getElementById('messageForm');
-if(!form) return;
 
-const btn = form.querySelector('.transmit');
-if(!btn) return;
-
-form.addEventListener('submit',async e=>{
-  e.preventDefault();
-  document.activeElement.blur();
-  btn.disabled=true;
-
-  try{
-    const res=await fetch(FORM_ENDPOINT,{
-      method:'POST',
-      body:new FormData(form),
-      headers:{Accept:'application/json'}
-    });
-
-    if(res.ok){
-  form.reset();
-  showAck("Message Received.");
+if(!form){
+  console.warn("Form not found");
 }else{
-  showAck("Message failed.", "Please try again later.");
-}
-  }catch{
-  showAck("Network error.", "Check your connection and retry.");
-}
+  const btn = form.querySelector('.transmit');
+  if(!btn){
+    console.warn("Submit button not found");
+  }else{
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      document.activeElement.blur();
+      btn.disabled=true;
 
-  btn.disabled=false;
-});
+      try{
+        const res=await fetch(FORM_ENDPOINT,{
+          method:'POST',
+          body:new FormData(form),
+          headers:{Accept:'application/json'}
+        });
+
+        if(res.ok){
+          form.reset();
+          showAck("Message Received.");
+        }else{
+          showAck("Message failed.", "Please try again later.");
+        }
+      }catch{
+        showAck("Network error.", "Check your connection and retry.");
+      }
+
+      btn.disabled=false;
+    });
+  }
+}
 </script>
 
 </body>
