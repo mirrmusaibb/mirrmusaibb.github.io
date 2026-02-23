@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>musaib</title>
 
-<!-- SEO -->
 <meta name="description" content="Send a message to Musaib through a simple contact portal. Fast, minimal, and mobile-friendly." />
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 <link rel="canonical" href="https://mirrmusaibb.github.io/" />
@@ -34,7 +33,7 @@ body{
   padding:28px;
 }
 
-/* ===== CARD SHELL ===== */
+/* CARD */
 .shell{
   width:100%;
   max-width:460px;
@@ -52,7 +51,7 @@ body{
   box-shadow:0 28px 80px rgba(0,0,0,.8),inset 0 0 0 1px var(--border);
 }
 
-/* ===== SLIDER ===== */
+/* SLIDER */
 .strip{
   display:flex;
   width:200%;
@@ -60,14 +59,14 @@ body{
 }
 body.pay-mode .strip{transform:translateX(-50%)}
 
-/* ===== PANELS ===== */
+/* PANELS */
 .panel{
   width:50%;
   padding:34px 28px;
   text-align:center;
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* TEXT */
 .morse{
   font-family:ui-monospace,monospace;
   letter-spacing:6px;
@@ -79,16 +78,14 @@ h1{
   margin:0 0 28px;
   font-size:20px;
   font-weight:700;
-  color:#efefef;
 }
 
-/* ===== FORM ===== */
+/* FORM */
 form{
   display:flex;
   flex-direction:column;
   gap:12px;
 }
-
 .field{
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.07);
@@ -101,12 +98,10 @@ form{
   pointer-events:none;
   transition:opacity var(--t),transform var(--t);
 }
-
 textarea{min-height:120px;resize:none}
 
-/* ===== BUTTONS ===== */
+/* BUTTONS */
 .actions{display:flex;gap:10px}
-
 .btn{
   padding:10px 14px;
   border-radius:9px;
@@ -119,18 +114,15 @@ textarea{min-height:120px;resize:none}
   opacity:0;
   transform:translateY(8px);
   pointer-events:none;
-  transition:background 180ms,transform 120ms,opacity var(--t);
 }
-
 .btn:hover{
   background:rgba(255,255,255,.14);
   transform:translateY(-2px);
 }
-
 .btn.transmit{flex:1}
 .btn.pay{flex:0 0 44px}
 
-/* ===== VISIBILITY CONTROL ===== */
+/* VISIBILITY */
 .shell:hover .field,
 .shell:focus-within .field,
 .shell:hover .btn,
@@ -140,14 +132,14 @@ textarea{min-height:120px;resize:none}
   pointer-events:auto;
 }
 
-/* ===== FOOT ===== */
+/* FOOT */
 .foot{
   margin-top:14px;
   font-size:12px;
   color:var(--muted);
 }
 
-/* ===== PAY PANEL ===== */
+/* PAY PANEL */
 .signal{
   font-family:ui-monospace,monospace;
   letter-spacing:4px;
@@ -164,7 +156,6 @@ textarea{min-height:120px;resize:none}
   width:180px;
   height:180px;
   border-radius:14px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.08);
 }
 .or{
   font-family:ui-monospace,monospace;
@@ -181,56 +172,15 @@ textarea{min-height:120px;resize:none}
   pointer-events:auto!important;
 }
 
-/* ===== UPI MICRO NOTE ===== */
+/* UPI NOTE */
 .upi-note{
   margin-top:8px;
   font-size:11px;
   color:var(--muted);
   opacity:0;
-  transition:opacity 260ms ease;
-  pointer-events:none;
+  transition:opacity 220ms ease;
 }
-.upi-note.visible{
-  opacity:.6;
-}
-
-/* ===== ACK OVERLAY ===== */
-.ack{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.06);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 320ms ease;
-  z-index:999;
-}
-.ack.visible{
-  opacity:1;
-  pointer-events:auto;
-}
-.ack-box{
-  text-align:center;
-  padding:24px 28px;
-}
-.ack-main{
-  font-size:16px;
-  font-weight:600;
-  color:#efefef;
-}
-.ack-sub{
-  margin-top:4px;
-  font-size:11px;
-  letter-spacing:.5px;
-  opacity:.38;
-}
-
-/* ===== MOBILE ===== */
-@media(max-width:520px){
-  .panel{padding:26px 18px}
-}
+.upi-note.show{opacity:.6}
 </style>
 </head>
 
@@ -244,7 +194,7 @@ textarea{min-height:120px;resize:none}
       <div class="morse">··· --- ···</div>
       <h1>What's on your mind?</h1>
 
-      <form id="messageForm" autocomplete="off">
+      <form id="messageForm">
         <input type="text" name="_gotcha" style="display:none">
         <input class="field" name="name" placeholder="Name (Optional)">
         <textarea class="field" name="message" required placeholder="Write your message.."></textarea>
@@ -263,6 +213,7 @@ textarea{min-height:120px;resize:none}
       <div class="signal">. In Appreciation .</div>
       <div class="qr-wrap"><img src="upi-qr.png" alt="UPI QR"></div>
       <div class="or">OR</div>
+
       <button class="btn pay-btn" id="upiBtn">Pay Via UPI</button>
       <div class="upi-note" id="upiNote">Opening UPI app…</div>
 
@@ -272,77 +223,46 @@ textarea{min-height:120px;resize:none}
   </div>
 </div>
 
-<!-- ACK OVERLAY -->
-<div class="ack" id="ack">
-  <div class="ack-box">
-    <div class="ack-main" id="ackMain"></div>
-    <div class="ack-sub" id="ackSub"></div>
-  </div>
-</div>
-
 <script>
-/* ACK SYSTEM (used only for message submit) */
-const ack = document.getElementById('ack');
-const ackMain = document.getElementById('ackMain');
-const ackSub = document.getElementById('ackSub');
+const payBtn = document.getElementById('payBtn');
+const upiBtn = document.getElementById('upiBtn');
+const upiNote = document.getElementById('upiNote');
+const shell = document.querySelector('.shell');
 
-function showAck(main, sub=""){
-  ackMain.textContent = main;
-  ackSub.textContent = sub;
-  ack.classList.add('visible');
-}
-
-ack.addEventListener('pointerdown',()=>{
-  ack.classList.remove('visible');
-});
-</script>
-
-<script>
-/* PAY PANEL */
-const payBtn=document.getElementById('payBtn');
-const upiBtn=document.getElementById('upiBtn');
-const upiNote=document.getElementById('upiNote');
-const shell=document.querySelector('.shell');
-
-payBtn.onclick=e=>{
+payBtn.onclick = e => {
   e.stopPropagation();
   document.body.classList.add('pay-mode');
 };
 
-document.addEventListener('pointerdown',e=>{
+document.addEventListener('pointerdown', e => {
   if(!e.target.closest('.shell')){
     document.body.classList.remove('pay-mode');
     document.activeElement.blur();
   }
+});
+
+upiBtn.onclick = () => {
+  upiNote.classList.add('show');
+  setTimeout(() => {
+    location.href = "upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
+  }, 200);
+  setTimeout(() => {
+    upiNote.classList.remove('show');
+  }, 1800);
 };
 
-upiBtn.onclick=()=>{
-  upiNote.classList.add('visible');
-
-  setTimeout(()=>{
-    location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
-  },200);
-
-  setTimeout(()=>{
-    upiNote.classList.remove('visible');
-  },2200);
-};
-
-/* MOBILE TAP → FOCUS */
 shell.addEventListener('pointerdown',()=>{
   shell.focus({preventScroll:true});
 });
 </script>
 
 <script>
-/* FORM SUBMISSION */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
 const form=document.getElementById('messageForm');
 const btn=form.querySelector('.transmit');
 
 form.addEventListener('submit',async e=>{
   e.preventDefault();
-  document.activeElement.blur();
   btn.disabled=true;
 
   try{
@@ -351,11 +271,7 @@ form.addEventListener('submit',async e=>{
       body:new FormData(form),
       headers:{Accept:'application/json'}
     });
-
-    if(res.ok){
-      form.reset();
-      showAck("Message received.");
-    }
+    if(res.ok) form.reset();
   }catch{}
 
   btn.disabled=false;
