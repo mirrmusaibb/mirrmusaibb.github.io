@@ -190,18 +190,28 @@ textarea{min-height:120px;resize:none}
 }
 .upi-note.show{opacity:.6}
 
-/* ===== ACK OVERLAY (FORM ONLY) ===== */
+/* ===== ACK OVERLAY (FIXED FOR MOBILE) ===== */
 .ack{
   position:fixed;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,.06);
+
+  /* solid fallback to fully block content */
+  background:rgba(0,0,0,.65);
+
+  /* blur on supported devices */
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
   opacity:0;
   pointer-events:none;
   transition:opacity 320ms ease;
-  z-index:999;
+  z-index:9999;
+
+  /* force own layer (mobile fix) */
+  transform:translateZ(0);
 }
 .ack.visible{
   opacity:1;
@@ -221,6 +231,11 @@ textarea{min-height:120px;resize:none}
   font-size:11px;
   letter-spacing:.5px;
   opacity:.38;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:520px){
+  .panel{padding:26px 18px}
 }
 </style>
 </head>
@@ -308,12 +323,8 @@ document.addEventListener('pointerdown',e=>{
 
 upiBtn.onclick=()=>{
   upiNote.classList.add('show');
-  setTimeout(()=>{
-    location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
-  },200);
-  setTimeout(()=>{
-    upiNote.classList.remove('show');
-  },1800);
+  setTimeout(()=>location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR",200);
+  setTimeout(()=>upiNote.classList.remove('show'),1800);
 };
 
 /* MOBILE TAP → FOCUS */
@@ -323,7 +334,7 @@ shell.addEventListener('pointerdown',()=>{
 </script>
 
 <script>
-/* FORM SUBMISSION — RESTORED EXACTLY */
+/* FORM SUBMISSION */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
 const form=document.getElementById('messageForm');
 const btn=form.querySelector('.transmit');
