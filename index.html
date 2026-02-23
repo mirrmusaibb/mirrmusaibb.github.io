@@ -350,12 +350,16 @@
 </script>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+
   const form = document.getElementById('messageForm');
+  if (!form) return; // safety
+
   const success = document.getElementById('successMsg');
   const transmitBtn = form.querySelector('.transmit');
 
   form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // ⛔ STOP browser redirect
+    e.preventDefault(); // THIS NOW ALWAYS RUNS
 
     transmitBtn.disabled = true;
     transmitBtn.style.opacity = 0.5;
@@ -387,9 +391,13 @@
     setTimeout(() => {
       success.classList.remove('visible');
       transmitBtn.disabled = false;
-      transmitBtn.style.opacity = 1;
+      transmitBtn.style.opacity = '';
+      transmitBtn.style.transform = '';
+      transmitBtn.style.pointerEvents = '';
     }, 4000);
   });
+
+});
 </script>
 
 </body>
