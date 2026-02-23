@@ -45,7 +45,6 @@ body{
   backdrop-filter:blur(var(--blur));
   transition:transform var(--t),box-shadow var(--t);
   outline:none;
-  position:relative;
 }
 .shell:hover,
 .shell:focus-within{
@@ -143,14 +142,9 @@ textarea{min-height:120px;resize:none}
 
 /* ===== FOOT ===== */
 .foot{
-  position:absolute;
-  bottom:14px;
-  left:0;
-  right:0;
-  text-align:center;
+  margin-top:14px;
   font-size:12px;
   color:var(--muted);
-  pointer-events:none;
 }
 
 /* ===== PAY PANEL ===== */
@@ -248,7 +242,7 @@ textarea{min-height:120px;resize:none}
         </div>
       </form>
 
-     
+      <div class="foot"> • mirrmusaibb • </div>
     </section>
 
     <!-- PANEL 2 -->
@@ -257,10 +251,12 @@ textarea{min-height:120px;resize:none}
       <div class="qr-wrap"><img src="upi-qr.png" alt="UPI QR"></div>
       <div class="or">OR</div>
       <button class="btn pay-btn" id="upiBtn">Pay Via UPI</button>
+
+      <!-- SAME FOOTER, UNCHANGED -->
+      <div class="foot"> • mirrmusaibb • </div>
     </section>
 
   </div>
-   <div class="foot"> • mirrmusaibb • </div>
 </div>
 
 <!-- ACK OVERLAY -->
@@ -339,7 +335,7 @@ form.addEventListener('submit',async e=>{
 
     if(res.ok){
       form.reset();
-      showAck("Message Received.");
+      showAck("Message received.");
     }
   }catch{}
 
