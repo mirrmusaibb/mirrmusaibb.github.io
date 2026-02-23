@@ -10,7 +10,6 @@
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 <link rel="canonical" href="https://mirrmusaibb.github.io/" />
 <meta name="theme-color" content="#000000" />
-
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
@@ -35,6 +34,7 @@ body{
   padding:28px;
 }
 
+/* ===== CARD SHELL ===== */
 .shell{
   width:100%;
   max-width:460px;
@@ -45,12 +45,13 @@ body{
   backdrop-filter:blur(var(--blur));
   transition:transform var(--t),box-shadow var(--t);
 }
-
-.shell:hover{
+.shell:hover,
+.shell:focus-within{
   transform:translateY(-6px);
   box-shadow:0 28px 80px rgba(0,0,0,.8),inset 0 0 0 1px var(--border);
 }
 
+/* ===== SLIDER ===== */
 .strip{
   display:flex;
   width:200%;
@@ -58,21 +59,21 @@ body{
 }
 body.pay-mode .strip{transform:translateX(-50%)}
 
+/* ===== PANELS ===== */
 .panel{
   width:50%;
   padding:34px 28px;
   text-align:center;
 }
 
+/* ===== TYPOGRAPHY ===== */
 .morse{
   font-family:ui-monospace,monospace;
   letter-spacing:6px;
   font-size:13px;
   color:var(--muted);
   margin-bottom:10px;
-  opacity:.9;
 }
-
 h1{
   margin:0 0 28px;
   font-size:20px;
@@ -80,7 +81,12 @@ h1{
   color:#efefef;
 }
 
-form{display:flex;flex-direction:column;gap:12px}
+/* ===== FORM ===== */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
 .field{
   background:rgba(255,255,255,.04);
@@ -95,14 +101,9 @@ form{display:flex;flex-direction:column;gap:12px}
   transition:opacity var(--t),transform var(--t);
 }
 
-.shell:hover .field{
-  opacity:1;
-  transform:translateY(0);
-  pointer-events:auto;
-}
-
 textarea{min-height:120px;resize:none}
 
+/* ===== BUTTONS ===== */
 .actions{display:flex;gap:10px}
 
 .btn{
@@ -120,22 +121,32 @@ textarea{min-height:120px;resize:none}
   transition:background 180ms,transform 120ms,opacity var(--t);
 }
 
-.shell:hover .btn{
+.btn:hover{
+  background:rgba(255,255,255,.14);
+  transform:translateY(-2px);
+}
+
+.btn.transmit{flex:1}
+.btn.pay{flex:0 0 44px}
+
+/* ===== VISIBILITY CONTROL (DESKTOP + MOBILE) ===== */
+.shell:hover .field,
+.shell:focus-within .field,
+.shell:hover .btn,
+.shell:focus-within .btn{
   opacity:1;
   transform:translateY(0);
   pointer-events:auto;
 }
 
-.btn:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
-.btn.transmit{flex:1}
-.btn.pay{flex:0 0 44px}
-
+/* ===== FOOT ===== */
 .foot{
   margin-top:14px;
   font-size:12px;
   color:var(--muted);
 }
 
+/* ===== PAY PANEL ===== */
 .signal{
   font-family:ui-monospace,monospace;
   letter-spacing:4px;
@@ -143,13 +154,17 @@ textarea{min-height:120px;resize:none}
   color:var(--muted);
   margin-bottom:22px;
 }
-
-.qr-wrap{display:flex;justify-content:center;margin-bottom:14px}
+.qr-wrap{
+  display:flex;
+  justify-content:center;
+  margin-bottom:14px;
+}
 .qr-wrap img{
-  width:180px;height:180px;border-radius:14px;
+  width:180px;
+  height:180px;
+  border-radius:14px;
   box-shadow:0 0 0 1px rgba(255,255,255,.08);
 }
-
 .or{
   font-family:ui-monospace,monospace;
   font-size:11px;
@@ -157,7 +172,6 @@ textarea{min-height:120px;resize:none}
   color:var(--muted);
   margin:14px 0;
 }
-
 .pay-btn{
   width:180px;
   margin:0 auto;
@@ -166,32 +180,29 @@ textarea{min-height:120px;resize:none}
   pointer-events:auto!important;
 }
 
+/* ===== SUCCESS ===== */
 .success{
   opacity:0;
   margin-top:10px;
-  color:#7ef29d;
   font-size:13px;
+  color:#7ef29d;
   transition:opacity 600ms ease;
 }
 .success.visible{opacity:1}
 
+/* ===== MOBILE ===== */
 @media(max-width:520px){
   .panel{padding:26px 18px}
-  .shell:hover .field,
-  .shell:hover .btn{
-    opacity:0;
-    transform:translateY(8px);
-    pointer-events:none;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="shell">
+<div class="shell" tabindex="0">
   <div class="strip">
 
+    <!-- PANEL 1 -->
     <section class="panel">
       <div class="morse">··· --- ···</div>
       <h1>What's on your mind?</h1>
@@ -212,6 +223,7 @@ textarea{min-height:120px;resize:none}
       <div class="foot"> • mirrmusaibb • </div>
     </section>
 
+    <!-- PANEL 2 -->
     <section class="panel">
       <div class="signal">. Support the Signal .</div>
       <div class="qr-wrap"><img src="upi-qr.png" alt="UPI QR"></div>
@@ -223,6 +235,7 @@ textarea{min-height:120px;resize:none}
 </div>
 
 <script>
+/* ===== PAY PANEL ===== */
 const payBtn=document.getElementById('payBtn');
 const upiBtn=document.getElementById('upiBtn');
 
@@ -243,6 +256,7 @@ upiBtn.onclick=()=>{
 </script>
 
 <script>
+/* ===== FORM SUBMISSION ===== */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
 const form=document.getElementById('messageForm');
 const success=document.getElementById('successMsg');
@@ -251,7 +265,7 @@ const btn=form.querySelector('.transmit');
 form.addEventListener('submit',async e=>{
   e.preventDefault();
 
-  // release all focus IMMEDIATELY
+  // release focus immediately (prevents hover lock)
   document.activeElement.blur();
 
   btn.disabled=true;
