@@ -44,6 +44,7 @@ body{
   box-shadow:0 18px 50px rgba(0,0,0,.75),inset 0 0 0 1px var(--border);
   backdrop-filter:blur(var(--blur));
   transition:transform var(--t),box-shadow var(--t);
+  outline:none;
 }
 .shell:hover,
 .shell:focus-within{
@@ -129,7 +130,7 @@ textarea{min-height:120px;resize:none}
 .btn.transmit{flex:1}
 .btn.pay{flex:0 0 44px}
 
-/* ===== VISIBILITY CONTROL (DESKTOP + MOBILE) ===== */
+/* ===== VISIBILITY CONTROL ===== */
 .shell:hover .field,
 .shell:focus-within .field,
 .shell:hover .btn,
@@ -235,28 +236,35 @@ textarea{min-height:120px;resize:none}
 </div>
 
 <script>
-/* ===== PAY PANEL ===== */
+/* PAY PANEL */
 const payBtn=document.getElementById('payBtn');
 const upiBtn=document.getElementById('upiBtn');
+const shell=document.querySelector('.shell');
 
 payBtn.onclick=e=>{
   e.stopPropagation();
   document.body.classList.add('pay-mode');
 };
 
-document.addEventListener('click',e=>{
+document.addEventListener('pointerdown',e=>{
   if(!e.target.closest('.shell')){
     document.body.classList.remove('pay-mode');
+    document.activeElement.blur();
   }
 });
 
 upiBtn.onclick=()=>{
   location.href="upi://pay?pa=mirrmusaibb@okicici&pn=Musaib&cu=INR";
 };
+
+/* MOBILE TAP → FOCUS */
+shell.addEventListener('pointerdown',()=>{
+  shell.focus({preventScroll:true});
+});
 </script>
 
 <script>
-/* ===== FORM SUBMISSION ===== */
+/* FORM SUBMISSION */
 const FORM_ENDPOINT="https://formspree.io/f/xblzedpv";
 const form=document.getElementById('messageForm');
 const success=document.getElementById('successMsg');
@@ -264,10 +272,7 @@ const btn=form.querySelector('.transmit');
 
 form.addEventListener('submit',async e=>{
   e.preventDefault();
-
-  // release focus immediately (prevents hover lock)
   document.activeElement.blur();
-
   btn.disabled=true;
 
   try{
