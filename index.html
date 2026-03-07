@@ -458,9 +458,33 @@ if(!form){
 }
 </script>
 
-<footer>
-<a href="/privacy.html">Privacy Policy</a>
+<footer class="privacy-foot">
+<a href="/privacy.html" rel="nofollow">privacy</a>
 </footer>
+
+<style>
+.privacy-foot{
+position:fixed;
+bottom:14px;
+left:50%;
+transform:translateX(-50%);
+font-size:10px;
+letter-spacing:.18em;
+opacity:.22;
+z-index:2;
+pointer-events:auto;
+}
+
+.privacy-foot a{
+color:rgba(255,255,255,.55);
+text-decoration:none;
+transition:opacity 180ms ease;
+}
+
+.privacy-foot a:hover{
+opacity:.85;
+}
+</style>
   
 </body>
 </html>
