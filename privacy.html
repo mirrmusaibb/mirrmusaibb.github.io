@@ -2,43 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Privacy</title>
 
 <style>
+:root{
+--bg:#000;
+--border:rgba(255,255,255,.10);
+--muted:rgba(255,255,255,.45);
+--blur:12px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+
 body{
-background:#000;
-color:#dcdcdc;
-font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-max-width:640px;
-margin:auto;
-padding:40px 20px;
-line-height:1.6;
-font-size:14px;
+background:var(--bg);
+color:#eaeaea;
+font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:28px;
 }
+
+/* IDENTICAL SHELL */
+
+.shell{
+width:100%;
+max-width:460px;
+border-radius:14px;
+overflow:hidden;
+background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
+box-shadow:0 18px 50px rgba(0,0,0,.75),inset 0 0 0 1px var(--border);
+backdrop-filter:blur(var(--blur));
+padding:34px 28px;
+display:flex;
+flex-direction:column;
+}
+
+/* TYPOGRAPHY */
+
+.morse{
+font-family:ui-monospace,monospace;
+letter-spacing:6px;
+font-size:13px;
+color:var(--muted);
+margin-bottom:10px;
+text-align:center;
+}
+
 h1{
-font-size:18px;
-margin-bottom:18px;
+margin:0 0 24px;
+font-size:20px;
+font-weight:700;
+color:#efefef;
+text-align:center;
 }
+
 p{
+font-size:14px;
+line-height:1.6;
 opacity:.85;
+margin:10px 0;
+}
+
+/* FOOTER SAME STYLE */
+
+.foot{
+margin-top:auto;
+padding-top:14px;
+font-size:12px;
+color:var(--muted);
+text-align:center;
+}
+
+/* RETURN LINK */
+
+.back{
+text-align:center;
+margin-top:18px;
+font-size:11px;
+letter-spacing:.18em;
+color:rgba(255,255,255,.55);
+text-decoration:none;
+opacity:.45;
+transition:opacity 160ms ease;
+}
+
+.back:hover{
+opacity:.9;
+}
+
+@media(max-width:520px){
+.shell{padding:26px 18px}
 }
 </style>
 </head>
 
 <body>
 
-<h1>Privacy Policy</h1>
+<div class="shell">
 
-<p>This website provides a simple form that allows visitors to send messages to the site owner.</p>
+<div class="morse">··· --- ···</div>
+<h1>Privacy</h1>
 
-<p>If a visitor submits a message, the information entered in the form (such as name and message content) may be processed in order to deliver the message.</p>
+<p>This website provides a simple portal allowing visitors to send a message to the site owner.</p>
 
-<p>This information is not sold, shared, or used for advertising.</p>
+<p>If a visitor submits a message, the information entered in the form (such as name or message content) may be processed in order to deliver the message.</p>
 
-<p>Some third-party services used for hosting or form delivery may temporarily process submitted data.</p>
+<p>Messages may be handled through third-party form processing services used to deliver submissions.</p>
 
-<p>By using this website, you agree to this policy.</p>
+<p>Submitted information is not sold, shared, or used for advertising purposes.</p>
+
+<p>By using this website, you acknowledge and agree to this policy.</p>
+
+<a class="back" href="/">return</a>
+
+<div class="foot">• mirrmusaibb •</div>
+
+</div>
 
 </body>
 </html>
