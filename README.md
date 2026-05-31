@@ -1,6 +1,6 @@
 # Mir Musaib — Digital Observatory
 
-A handcrafted personal website for **MIR MUSAIB**: a calm, cinematic digital headquarters inspired by modern observatories, research labs, knowledge networks, and premium product design.
+A handcrafted personal website for **MIR MUSAIB**: a calm, cinematic digital homepage inspired by modern observatories, research labs, knowledge networks, and premium product design.
 
 ## Stack
 
